@@ -19,6 +19,24 @@ namespace SzamitastechnikaiBolt
             public int ar;
             public string kategoria;
             public string[] muszakiParameterek = new string[3];
+
+            static void Hozzaadas()
+            {
+                return;
+            }
+
+            static void Torles()
+            {
+                return;
+            }
+            static void Modositas()
+            {
+                return;
+            }
+            static void Vasarlas()
+            {
+                return;
+            }
         }
         static void Main(string[] args)
         {
