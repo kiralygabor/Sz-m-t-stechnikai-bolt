@@ -1,0 +1,28 @@
+Név;Darabszám;Ár;Kategória;Műszaki paraméterek
+
+iPhone13ProMax; 55; 1299USD; Okostelefon# A15Bionicchip#6.7hüvelykesSuperRetinaXDRkijelző#háromkamerarendszer(12MP)
+SamsungGalaxyS21Ultra; 70; 1199USD; Okostelefon# Exynos2100/Snapdragon888chip#6.8hüvelykesDynamicAMOLED2Xkijelző#négyhátsókamera(108MP)
+GooglePixel6Pro; 40; 899USD; Okostelefon# GoogleTensorchip#6.7hüvelykesFluidAMOLEDkijelző#duplahátsókamera(50MP)
+OnePlus9Pro; 25; 1069USD; Okostelefon# QualcommSnapdragon888chip#6.7hüvelykesFluidAMOLEDkijelző#négyhátsókamera(48MP)
+XiaomiMi11; 60; 749USD; Okostelefon# QualcommSnapdragon888chip#6.81hüvelykesAMOLEDkijelző#háromhátsókamera(108MP)
+LogitechMXMaster3; 80; 99.99USD; Egér# MagaspontosságúDarkfieldszenzor(4000DPI)#7programozhatógomb#BluetoothésUnifyingcsatlakozás
+RazerDeathAdderV2; 65; 69.99USD; Egér# Optikaiszenzor(20000DPI)#8programozhatógomb#RazerSpeedFlexkábel
+MicrosoftSurfacePrecisionMouse; 30; 99.99USD; Egér# 3különállógomb#BluetoothésUSBcsatlakozás#4000DPIérzékenység
+SteelSeriesRival650Wireless; 45; 119.99USD; Egér# TrueMove3+optikaiszenzor(12000CPI)#7programozhatógomb#24órásakkumulátorélettartam
+CorsairDarkCoreRGBPro; 20; 89.99USD; Egér# Optikaiszenzor(18000DPI)#Qivezetéknélkültöltés#9programozhatógomb#50órásakkumulátorélettartam
+HPLaserJetProMFP M428fdw; 35; 349.99USD# Nyomtató; 38oldal/percnyomtatásisebesség#automatikusduplexnyomtatás#Wi-FiDirectésEthernetcsatlakozás
+EpsonEcoTankET-4760; 50; 499.99USD; Nyomtató# Színestintasugarasnyomtatás#beépítetttintatartályrendszer#automatikuskétoldalasnyomtatás
+CanonPIXMA TS8320; 75; 129.99USD; Nyomtató# 6színűtintarendszer#beépítettSDkártyaolvasó#automatikuskétoldalasnyomtatás
+BrotherHL-L2350DW; 40; 129.99USD; Nyomtató# 32oldal/percnyomtatásisebesség#automatikusduplexnyomtatás#Wi-FiésEthernetcsatlakozás
+DellE310dw; 30; 129.99USD; Nyomtató# 27oldal/percnyomtatásisebesség#automatikusduplexnyomtatás#Wi-FiésEthernetcsatlakozás
+MacBookPro16hüvelykes(Apple); 45; 2399USD; Laptop# AppleM1Pro/M1Maxchip#16hüvelykesRetinakijelző#16/32GBRAM#512GB/1TBSSD
+DellXPS13; 70; 999USD; Laptop# IntelCorei5/i7chip#13.4hüvelykesInfinityEdgekijelző#8/16GBRAM#256GB/512GBSSD
+LenovoThinkPadX1Carbon; 55; 1399USD; Laptop# IntelCorei5/i7chip#14hüvelykesFullHDvagy4Kkijelző#8/16GBRAM#256GB/512GB/1TBSSD
+AsusROGZephyrusG14; 35; 1199USD; Laptop# AMDRyzen9chip#14hüvelykesWQHDvagy1080pkijelző#16GBRAM#1TBSSD
+HPSpectrex360; 60; 1299USD; Laptop# IntelCorei7chip#13.3h
+CorsairK95RGBPlatinumXT; 25; 199.99USD; Billentyűzet# CherryMXRGBBrownkapcsolók#programozhatóGésmultimédiabillentyűk#dinamikusRGBháttérvilágítás
+LogitechGProX; 40; 129.99USD; Billentyűzet# SwappableGXBluekapcsolók#programozhatóFésGbombok#LIGHTSYNCRGBháttérvilágítás
+RazerBlackWidowV3Pro; 30; 229.99USD; Billentyűzet# RazerGreenmechanikuskapcsolók#programozhatóGbombok#RazerChromaRGBháttérvilágítás
+SteelSeriesApexProTKL; 20; 179.99USD; Billentyűzet# Omnipointkapcsolók#programozhatómacroésmultimédiagombok#dinamikusRGBháttérvilágítás
+MicrosoftSurfaceErgonomicKeyboard; 15; 129.99USD; Billentyűzet# Splitdesign#állíthatólejtő#BluetoothésUSBcsatlakozás
+
