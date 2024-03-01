@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace SzamitastechnikaiBolt
 {
     internal class Program
     {
+        static string[] kategoriak = { "Okostelefon", "Egér", "Nyomtató", "Laptop", "Billentyűzet" };
         class Bolt
         {
             public string nev;
@@ -37,8 +41,67 @@ namespace SzamitastechnikaiBolt
             {
                 return;
             }
+
         }
-        static void Main(string[] args)
+
+        static void Regisztral(List<Bolt> adatok)
+        {
+            int kivalasztott = 0;
+
+            #region Menü
+            ConsoleKeyInfo lenyomott;
+
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Válasszon az alábbi lehetőségek közül:\n");
+
+                #region Menü kiírása
+                for (int i = 0; i < kategoriak.Length; i++)
+                {
+                    if (i == kivalasztott)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    Console.WriteLine("\t" + (i + 1) + ") " + kategoriak[i]);
+                }
+                #endregion
+
+                #region Gomblenyomás
+
+                lenyomott = Console.ReadKey();
+
+                switch (lenyomott.Key)
+                {
+                    case ConsoleKey.UpArrow: if (kivalasztott > 0) kivalasztott--; break;
+                    case ConsoleKey.DownArrow: if (kivalasztott < kategoriak.Length - 1) kivalasztott++; break;
+                }
+                #endregion
+
+            } while (lenyomott.Key != ConsoleKey.Enter);
+            #endregion
+            Console.Clear();
+
+            for (int i = 0;  i < adatok.Count; i++) 
+            {
+                if (kategoriak[kivalasztott] == adatok[i].kategoria)
+                {
+                    Console.WriteLine($"Nev: {adatok[i].nev} Darab: {adatok[i].darabszam} Ar: {adatok[i].ar} Parameterek: {adatok[i].muszakiParameterek[0]}");
+                }
+               
+            }
+            
+
+
+            Thread.Sleep(5000);
+        }
+
+            static void Main(string[] args)
         {
             List<Bolt> adatok = new List<Bolt>();
 
@@ -62,10 +125,12 @@ namespace SzamitastechnikaiBolt
             }
             sr.Close();
 
-            for (int i = 0; i < adatok.Count; i++)
-            {
-                Console.WriteLine("Név: {0}\t Darabszám: {1}\t Ár: {2}\t Kategória: {3}\t Paraméterek: {4}", adatok[i].nev, adatok[i].darabszam, adatok[i].ar, adatok[i].kategoria, adatok[i].muszakiParameterek[0]);
-            }
+            
+            Regisztral(adatok);
+            
+
+
+
         }
     }
 }
