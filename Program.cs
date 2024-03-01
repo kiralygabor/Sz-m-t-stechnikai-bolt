@@ -15,6 +15,7 @@ namespace SzamitastechnikaiBolt
 {
     internal class Program
     {
+        static int kivalasztott;
         static string[] kategoriak = { "Okostelefon", "Egér", "Nyomtató", "Laptop", "Billentyűzet" };
         class Bolt
         {
@@ -42,11 +43,13 @@ namespace SzamitastechnikaiBolt
                 return;
             }
 
+           
+
         }
 
-        static void Regisztral(List<Bolt> adatok)
+        static void Menu(List<Bolt> adatok, string[,] p_matrix)
         {
-            int kivalasztott = 0;
+            kivalasztott = 0;
 
             #region Menü
             ConsoleKeyInfo lenyomott;
@@ -84,24 +87,51 @@ namespace SzamitastechnikaiBolt
                 #endregion
 
             } while (lenyomott.Key != ConsoleKey.Enter);
+
+
             #endregion
             Console.Clear();
 
-            for (int i = 0;  i < adatok.Count; i++) 
+            List<Bolt> lista = new List<Bolt>();
+            Bolt termek = new Bolt();
+
+
+            for (int i = 0; i < adatok.Count; i++)
             {
                 if (kategoriak[kivalasztott] == adatok[i].kategoria)
                 {
-                    Console.WriteLine($"Nev: {adatok[i].nev} Darab: {adatok[i].darabszam} Ar: {adatok[i].ar} Parameterek: {adatok[i].muszakiParameterek[0]}");
-                }
-               
-            }
-            
+                    termek.nev = adatok[i].nev;
+                    termek.darabszam = adatok[i].darabszam;
+                    termek.ar = adatok[i].ar;
+                    termek.kategoria = adatok[i].kategoria;
+                    termek.muszakiParameterek = adatok[i].muszakiParameterek;
 
+                    lista.Add(termek);
+    
+                }
+
+            }
+
+            string[,] matrix = new string[5, 5];
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                matrix[i, 0] = lista[i].nev;
+                matrix[i, 1] = lista[i].darabszam.ToString();
+                matrix[i, 2] = lista[i].ar.ToString();
+                matrix[i, 3] = lista[i].kategoria;
+                matrix[i, 4] = lista[i].muszakiParameterek[0];
+
+            }
+
+
+            Menu(string[,] matrix);
 
             Thread.Sleep(5000);
+
+           
         }
 
-            static void Main(string[] args)
+        static void Main(string[] args)
         {
             List<Bolt> adatok = new List<Bolt>();
 
@@ -125,9 +155,10 @@ namespace SzamitastechnikaiBolt
             }
             sr.Close();
 
-            
-            Regisztral(adatok);
-            
+
+            Menu(adatok);
+            Console.WriteLine(kivalasztott);
+
 
 
 
