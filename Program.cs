@@ -29,6 +29,18 @@ namespace SzamitastechnikaiBolt
             public int azonosito;
             public string[] muszakiParameterek = new string[3];
 
+            public static string[] TombFeltoltes(List<Bolt> adatok) 
+            {
+                string[] osszes_termek = new string[adatok.Count];
+
+                for (int i = 0; i < adatok.Count; i++)
+                {
+                    osszes_termek[i] = adatok[i].nev;
+                }
+
+                return osszes_termek;
+            }
+            
             public static void Hozzaadas(List<Bolt> adatok)
             {
                 string valasz = "Igen";
@@ -74,7 +86,7 @@ namespace SzamitastechnikaiBolt
 
                 }
 
-                if (valasz == "Nem") 
+                if (valasz == "Nem")
                 {
                     Console.WriteLine("Kilepes az escape gombbal tortenik");
                     ConsoleKeyInfo lenyomott;
@@ -84,20 +96,16 @@ namespace SzamitastechnikaiBolt
                         AdatbazisKezeles(adatok);
                     }
                 }
-                
-                
+
+
             }
 
             public static void Torles(List<Bolt> adatok)
             {
                 kivalasztott = 0;
 
-                string[] osszes_termek = new string[adatok.Count];
-
-                for (int i = 0; i < adatok.Count; i++)
-                {
-                    osszes_termek[i] = adatok[i].nev;
-                }
+                string[] osszes_termek = TombFeltoltes(adatok);
+                
 
                 #region Menü
                 ConsoleKeyInfo lenyomott;
@@ -154,46 +162,107 @@ namespace SzamitastechnikaiBolt
                 {
                     Belepes(adatok);
                 }
-                
+
             }
 
             public static void Modositas(List<Bolt> adatok)
             {
-                Console.Write("Név: ");
-                string modositottNev = Console.ReadLine();
-                adatok[kivalasztott].nev = modositottNev;
+                kivalasztott = 0;
 
-                Console.Write("Ár: ");
-                int modositottAr = Convert.ToInt32(Console.ReadLine());
-                adatok[kivalasztott].ar = modositottAr;
+                string[] osszes_termek = TombFeltoltes(adatok);
 
-                Console.Write("Darabszám: ");
-                int modositottDarabszam = Convert.ToInt32(Console.ReadLine());
-                adatok[kivalasztott].darabszam = modositottDarabszam;
 
-                Console.Write("Kategoria: "); ;
-                string modositottKategoria = Console.ReadLine();
-                adatok[kivalasztott].kategoria = modositottKategoria;
+                #region Menü
+                ConsoleKeyInfo lenyomott;
 
-                /*Console.WriteLine("Azonosító: ");
-                int modositottAzonosito = Convert.ToInt32(Console.ReadLine());
-                adatok[kivalasztott].darabszam = modositottAzonosito;*/
+                do
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Válasszon az alábbi lehetőségek közül:\n");
 
-                Console.WriteLine("Műszaki paraméterek: ");
+                    #region Menü kiírása
+                    for (int i = 0; i < osszes_termek.Length; i++)
+                    {
+                        if (i == kivalasztott)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        Console.WriteLine("\t" + (i + 1) + ") " + osszes_termek[i]);
+                    }
+                    #endregion
 
-                Console.Write("1.: ");
-                string modositottParameter = Console.ReadLine();
-                adatok[kivalasztott].muszakiParameterek[0] = modositottParameter;
+                    #region Gomblenyomás
 
-                Console.Write("2.: ");
-                modositottParameter = Console.ReadLine();
-                adatok[kivalasztott].muszakiParameterek[1] = modositottParameter;
+                    lenyomott = Console.ReadKey();
 
-                Console.Write("3.: ");
-                modositottParameter = Console.ReadLine();
-                adatok[kivalasztott].muszakiParameterek[2] = modositottParameter;
+                    switch (lenyomott.Key)
+                    {
+                        case ConsoleKey.UpArrow: if (kivalasztott > 0) kivalasztott--; break;
+                        case ConsoleKey.DownArrow: if (kivalasztott < osszes_termek.Length - 1) kivalasztott++; break;
+                    }
+                    #endregion
 
-                Console.WriteLine("Sikeres módosítás!");
+                } while (lenyomott.Key != ConsoleKey.Enter && lenyomott.Key != ConsoleKey.Escape);
+
+
+                #endregion
+                Console.Clear();
+                if (lenyomott.Key == ConsoleKey.Enter)
+                {
+
+                    Console.Write("Név: ");
+                    string modositottNev = Console.ReadLine();
+                    adatok[kivalasztott].nev = modositottNev;
+
+                    Console.Write("Ár: ");
+                    int modositottAr = Convert.ToInt32(Console.ReadLine());
+                    adatok[kivalasztott].ar = modositottAr;
+
+                    Console.Write("Darabszám: ");
+                    int modositottDarabszam = Convert.ToInt32(Console.ReadLine());
+                    adatok[kivalasztott].darabszam = modositottDarabszam;
+
+                    Console.Write("Kategoria: "); ;
+                    string modositottKategoria = Console.ReadLine();
+                    adatok[kivalasztott].kategoria = modositottKategoria;
+
+                    /*Console.WriteLine("Azonosító: ");
+                    int modositottAzonosito = Convert.ToInt32(Console.ReadLine());
+                    adatok[kivalasztott].darabszam = modositottAzonosito;*/
+
+                    Console.WriteLine("Műszaki paraméterek: ");
+
+                    Console.Write("1.: ");
+                    string modositottParameter = Console.ReadLine();
+                    adatok[kivalasztott].muszakiParameterek[0] = modositottParameter;
+
+                    Console.Write("2.: ");
+                    modositottParameter = Console.ReadLine();
+                    adatok[kivalasztott].muszakiParameterek[1] = modositottParameter;
+
+                    Console.Write("3.: ");
+                    modositottParameter = Console.ReadLine();
+                    adatok[kivalasztott].muszakiParameterek[2] = modositottParameter;
+
+                    Console.WriteLine("Sikeres módosítás!");
+                    Console.WriteLine("Kilepes az escape gombbal tortenik");
+                    lenyomott = Console.ReadKey();
+
+                    if (lenyomott.Key == ConsoleKey.Escape)
+                    {
+                        AdatbazisKezeles(adatok);
+                    }
+                }
+                else
+                {
+                    Belepes(adatok);
+                }
+   
             }
 
             public static void Vasarlas(List<Bolt> adatok)
@@ -275,7 +344,7 @@ namespace SzamitastechnikaiBolt
             {
                 FoMenu(adatok);
             }
-            
+
 
         }
 
@@ -348,7 +417,7 @@ namespace SzamitastechnikaiBolt
             {
                 Belepes(adatok);
             }
-            
+
 
 
         }
@@ -378,7 +447,7 @@ namespace SzamitastechnikaiBolt
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                     }
-                        Console.WriteLine("\t" + (i + 1) + ") " + kategoriak[i]);
+                    Console.WriteLine("\t" + (i + 1) + ") " + kategoriak[i]);
                 }
                 #endregion
 
@@ -400,7 +469,7 @@ namespace SzamitastechnikaiBolt
             Console.Clear();
             if (lenyomott.Key == ConsoleKey.Enter)
             {
-                
+
                 for (int i = 0; i < adatok.Count; i++)
                 {
                     if (kategoriak[kivalasztott] == adatok[i].kategoria)
@@ -421,7 +490,7 @@ namespace SzamitastechnikaiBolt
         static void AlMenu(List<Bolt> adatok)
         {
             kivalasztott = 0;
-            
+
 
             #region Menü
             ConsoleKeyInfo lenyomott;
@@ -454,7 +523,7 @@ namespace SzamitastechnikaiBolt
                 switch (lenyomott.Key)
                 {
                     case ConsoleKey.UpArrow: if (kivalasztott > 0) kivalasztott--; break;
-                    case ConsoleKey.DownArrow: if (kivalasztott < kategoriak.Length - 1) kivalasztott++; break;
+                    case ConsoleKey.DownArrow: if (kivalasztott < eszkozok.Count - 1) kivalasztott++; break;
                 }
                 #endregion
 
@@ -474,15 +543,15 @@ namespace SzamitastechnikaiBolt
             }
 
 
-            
-            
+
+
         }
 
         static void Menuopciok(List<Bolt> adatok)
         {
             kivalasztott = 0;
 
-            string[] opciok = {"Vásárlás", "Termékleírás"};
+            string[] opciok = { "Vásárlás", "Termékleírás" };
 
             #region Menü
             ConsoleKeyInfo lenyomott;
@@ -567,7 +636,7 @@ namespace SzamitastechnikaiBolt
 
             Belepes(adatok);
 
-            
+
             /*Console.WriteLine(adatok[0].darabszam);
             Bolt.Vasarlas(0, adatok);
             Console.WriteLine(adatok[0].darabszam);
@@ -579,19 +648,12 @@ namespace SzamitastechnikaiBolt
             Console.WriteLine("Név: {0} \t Ár: {1} \t Darabszám: {2} \t Paraméterek: {3} {4} {5}", adatok[0].nev, adatok[0].ar, adatok[0].darabszam, adatok[0].muszakiParameterek[0], adatok[0].muszakiParameterek[1], adatok[0].muszakiParameterek[2]);
             
 
-            
-            Bolt.Torles(0, adatok);
-            Bolt.Hozzaadas(adatok);
-
             for (int i = 0;i < adatok.Count; i++)
             {
                 Console.WriteLine("Név: {0}  Ár: {1} Darabszám: {2} Paraméterek: {3} {4} {5}", adatok[i].nev, adatok[i].ar, adatok[i].darabszam, adatok[i].muszakiParameterek[0], adatok[i].muszakiParameterek[1], adatok[i].muszakiParameterek[2]);
             }*/
 
-            for (int i = 0;i < adatok.Count; i++) 
-            { 
-            
-            }
+           
         }
     }
 }
