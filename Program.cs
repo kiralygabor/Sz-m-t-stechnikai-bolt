@@ -19,7 +19,9 @@ namespace SzamitastechnikaiBolt
         static int kivalasztott;
         static string[] kategoriak = { "Okostelefon", "Egér", "Nyomtató", "Laptop", "Billentyűzet" };
         static List<string> eszkozok = new List<string>();
-        static int index = 0;
+        static int kivalasztottIndex = 0;
+        static int penz = 0;
+        static string jelszo = "admin";
 
         class Bolt
         {
@@ -30,7 +32,7 @@ namespace SzamitastechnikaiBolt
             public char avulo;
             public string[] muszakiParameterek = new string[3];
 
-            public static string[] TombFeltoltes(List<Bolt> adatok) 
+            public static string[] TombFeltoltes(List<Bolt> adatok)
             {
                 string[] osszes_termek = new string[adatok.Count];
 
@@ -41,7 +43,7 @@ namespace SzamitastechnikaiBolt
 
                 return osszes_termek;
             }
-            
+
             public static void Hozzaadas(List<Bolt> adatok)
             {
                 string valasz = "Igen";
@@ -79,10 +81,10 @@ namespace SzamitastechnikaiBolt
 
                     adatok.Add(ujAdat);
                     eszkozok.Add(ujAdat.nev);
-                    Console.WriteLine("A termek hozza lett adva az adatbazishoz!");
+                    Console.WriteLine("A termék hozzá lett adva az adatbázishoz!");
                     Console.WriteLine();
 
-                    Console.WriteLine("Szeretne meg adatot hozzaadni? (Igen, Nem):");
+                    Console.WriteLine("Szeretne meg adatot hozzáadni? (Igen, Nem):");
                     valasz = Console.ReadLine();
 
                 }
@@ -106,7 +108,7 @@ namespace SzamitastechnikaiBolt
                 kivalasztott = 0;
 
                 string[] osszes_termek = TombFeltoltes(adatok);
-                
+
 
                 #region Menü
                 ConsoleKeyInfo lenyomott;
@@ -263,15 +265,18 @@ namespace SzamitastechnikaiBolt
                 {
                     Belepes(adatok);
                 }
-   
+
             }
 
             public static void Vasarlas(List<Bolt> adatok)
             {
+                int kivalasztottIndex = IndexLekeres(kivalasztott, adatok);
+                
+
                 string fogyoban = "";
                 double kedvezmeny;
 
-                if (adatok[kivalasztott].darabszam < 10) 
+                if (adatok[kivalasztott].darabszam < 10)
                 {
                     fogyoban = "(A termék kifogyóban van!)";
                 }
@@ -291,13 +296,14 @@ namespace SzamitastechnikaiBolt
 
                 if (kedvezmeny == 1)
                 {
-
-                Console.WriteLine("Név: {0} \nÁr: {1} Ft\nDarabszám: {2} {3}", adatok[kivalasztott].nev, adatok[kivalasztott].ar*kedvezmeny, adatok[kivalasztott].darabszam, fogyoban);
+                    Console.WriteLine($"Penz: {penz} ft");
+                    Console.WriteLine();
+                    Console.WriteLine("Név: {0} \nÁr: {1} Ft\nDarabszám: {2} {3}", adatok[kivalasztottIndex].nev, adatok[kivalasztottIndex].ar * kedvezmeny, adatok[kivalasztottIndex].darabszam, fogyoban);
 
                 }
                 else
                 {
-                    Console.WriteLine("Név: {0} \nEredeti Ár: {1} Ft\nAkciós Ár: {2} Ft\nDarabszám: {3} {4}", adatok[kivalasztott].nev, adatok[kivalasztott].ar, adatok[kivalasztott].ar * kedvezmeny, adatok[kivalasztott].darabszam, fogyoban);
+                    Console.WriteLine("Név: {0} \nEredeti Ár: {1} Ft\nAkciós Ár: {2} Ft\nDarabszám: {3} {4}", adatok[kivalasztottIndex].nev, adatok[kivalasztottIndex].ar, adatok[kivalasztottIndex].ar * kedvezmeny, adatok[kivalasztottIndex].darabszam, fogyoban);
                 }
                 Console.WriteLine();
                 Console.Write("Mennnyiség: ");
@@ -305,15 +311,20 @@ namespace SzamitastechnikaiBolt
 
                 int raktaron = adatok[kivalasztott].darabszam;
 
-                if (raktaron >= vasaroltdb && raktaron > 0)
+                if (raktaron >= vasaroltdb && raktaron > 0 && vasaroltdb * adatok[kivalasztott].ar < penz)
                 {
                     raktaron = raktaron - vasaroltdb;
                     Console.WriteLine("A vásárlás sikeres.");
+                    penz -= vasaroltdb * adatok[kivalasztott].ar;
                     Console.WriteLine("Kilepes az escape gombbal tortenik");
                 }
-                else
+                if (raktaron < vasaroltdb)
                 {
                     Console.WriteLine("Nincs elég a raktáron!");
+                }
+                if (raktaron >= vasaroltdb && raktaron > 0 && vasaroltdb * adatok[kivalasztott].ar > penz) 
+                {
+                    Console.WriteLine("Nincs eleg penz!");
                 }
                 adatok[kivalasztott].darabszam = raktaron;
 
@@ -321,7 +332,7 @@ namespace SzamitastechnikaiBolt
 
                 lenyomott = Console.ReadKey();
 
-                if (lenyomott.Key == ConsoleKey.Escape) 
+                if (lenyomott.Key == ConsoleKey.Escape)
                 {
                     AlMenu(adatok);
                 }
@@ -330,18 +341,33 @@ namespace SzamitastechnikaiBolt
 
         }
 
-        
-        static int IndexLekeres(int kivalasztott)
+
+        static int IndexLekeres(int kivalasztott, List<Bolt> adatok)
         {
-            int index = kivalasztott;
-            return index;
+            int kivalasztottIndex = 0;
+            for (int i = 0; i < adatok.Count; i++)
+            {
+                if (eszkozok[kivalasztott] == adatok[i].nev)
+                {
+                    kivalasztottIndex = i;
+                    break;
+                }
+            }
+            return kivalasztottIndex;
+        }
+
+        static void PenzFeltoltes() 
+        { 
+            
+            Console.WriteLine("Adja meg hogy mennyi penzt szeretne feltolteni");
+            penz += Convert.ToInt32(Console.ReadLine());
         }
 
         static void Belepes(List<Bolt> adatok)
         {
             kivalasztott = 0;
 
-            string[] menupontok = { "Adatbázis Kezelése", "Terméklista", "Programból való kilépés" };
+            string[] menupontok = { "Adatbázis Kezelése", "Terméklista", "Penz feltoltese", "Programból való kilépés" };
 
 
             #region Menü
@@ -386,11 +412,33 @@ namespace SzamitastechnikaiBolt
             Console.Clear();
             if (kivalasztott == 0)
             {
-                AdatbazisKezeles(adatok);
+                Console.WriteLine("Adja meg a jelszót hogy hozzáférjen az adatbázishoz: ");
+                string megadottjelszo = Console.ReadLine();
+                if (megadottjelszo == jelszo) 
+                { 
+                    AdatbazisKezeles(adatok);
+                }
+                else
+                {
+                    Console.WriteLine("Jelszo helytelen!\nHozzaferes megtagadva");
+                    Console.WriteLine("Visszaleptetes a fomenube!");
+                    Thread.Sleep(2500);
+                    Belepes(adatok);
+                }
             }
             else if (kivalasztott == 1)
             {
                 FoMenu(adatok);
+            }
+            else if (kivalasztott == 2)
+            {
+                PenzFeltoltes();
+                Console.WriteLine("Kilepes az escape gombbal tortenik");
+                lenyomott = Console.ReadKey();
+                if (lenyomott.Key == ConsoleKey.Escape)
+                {
+                    Belepes(adatok);
+                }
             }
             else
             {
@@ -594,8 +642,8 @@ namespace SzamitastechnikaiBolt
 
             if (lenyomott.Key == ConsoleKey.Enter)
             {
-                index = IndexLekeres(kivalasztott);
-                Menuopciok(adatok);     
+                kivalasztottIndex = IndexLekeres(kivalasztott, adatok);
+                Menuopciok(adatok);
             }
             if (lenyomott.Key == ConsoleKey.Escape)
             {
@@ -658,7 +706,7 @@ namespace SzamitastechnikaiBolt
                 }
                 else
                 {
-                    Console.WriteLine($"Műszaki Paraméterek: {adatok[index].muszakiParameterek[0]}\t{adatok[index].muszakiParameterek[1]}\t{adatok[index].muszakiParameterek[2]}");
+                    Console.WriteLine($"Műszaki Paraméterek: {adatok[kivalasztottIndex].muszakiParameterek[0]}\t{adatok[kivalasztottIndex].muszakiParameterek[1]}\t{adatok[kivalasztottIndex].muszakiParameterek[2]}");
                     Console.WriteLine("Kilepes az escape gombbal tortenik");
                     lenyomott = Console.ReadKey();
                     if (lenyomott.Key == ConsoleKey.Escape)
@@ -701,7 +749,7 @@ namespace SzamitastechnikaiBolt
 
             Belepes(adatok);
 
-            
+
         }
     }
 }
