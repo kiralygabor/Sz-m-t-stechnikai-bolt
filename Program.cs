@@ -274,7 +274,7 @@ namespace SzamitastechnikaiBolt
             public static void Vasarlas(List<Bolt> adatok)
             {
                 int kivalasztottIndex = IndexLekeres(kivalasztott, adatok);
-                
+
 
                 string fogyoban = "";
                 double kedvezmeny;
@@ -321,7 +321,7 @@ namespace SzamitastechnikaiBolt
                     raktaron = raktaron - vasaroltdb;
                     Console.WriteLine();
                     Console.WriteLine("A vásárlás sikeres.");
-                    if (adatok[kivalasztott].avulo == 'F') 
+                    if (adatok[kivalasztott].avulo == 'F')
                     {
                         penz -= vasaroltdb * adatok[kivalasztottIndex].ar;
                     }
@@ -329,7 +329,7 @@ namespace SzamitastechnikaiBolt
                     {
                         penz -= vasaroltdb * (adatok[kivalasztottIndex].ar * kedvezmeny);
                     }
-                    Console.WriteLine("Kilepes az escape gombbal tortenik");
+                    Console.WriteLine("Kilépés az escape gombbal történik.");
                 }
                 else if (raktaron < vasaroltdb)
                 {
@@ -353,10 +353,10 @@ namespace SzamitastechnikaiBolt
                         penz -= vasaroltdb * (adatok[kivalasztottIndex].ar * kedvezmeny);
                     }
                     raktaron = raktaron - vasaroltdb;
-                    Console.WriteLine("Kilepes az escape gombbal tortenik");
+                    Console.WriteLine("Kilépés az escape gombbal történik.");
 
                 }
-                else if (raktaron >= vasaroltdb && raktaron > 0 && vasaroltdb * adatok[kivalasztottIndex].ar > penz) 
+                else if (raktaron >= vasaroltdb && raktaron > 0 && vasaroltdb * adatok[kivalasztottIndex].ar > penz)
                 {
                     do
                     {
@@ -378,7 +378,7 @@ namespace SzamitastechnikaiBolt
                         penz -= vasaroltdb * (adatok[kivalasztottIndex].ar * kedvezmeny);
                     }
                     raktaron = raktaron - vasaroltdb;
-                    Console.WriteLine("Kilepes az escape gombbal tortenik");
+                    Console.WriteLine("Kilépés az escape gombbal történik.");
 
                 }
                 adatok[kivalasztottIndex].darabszam = raktaron;
@@ -411,10 +411,10 @@ namespace SzamitastechnikaiBolt
             return kivalasztottIndex;
         }
 
-        static void PenzFeltoltes() 
-        { 
-            
-            Console.WriteLine("Adja meg hogy mennyi pénzt szeretne feltölteni:");
+        static void PenzFeltoltes()
+        {
+
+            Console.Write("Adja meg hogy mennyi pénzt szeretne feltölteni: ");
             penz += Convert.ToInt32(Console.ReadLine());
         }
 
@@ -469,13 +469,13 @@ namespace SzamitastechnikaiBolt
             {
                 Console.WriteLine("Adja meg a jelszót hogy hozzáférjen az adatbázishoz: ");
                 string megadottjelszo = Console.ReadLine();
-                if (megadottjelszo == jelszo) 
-                { 
+                if (megadottjelszo == jelszo)
+                {
                     AdatbazisKezeles(adatok);
                 }
                 else
                 {
-                    Console.WriteLine("Jelszó helytelen!\nHozzáférés megtagadva");
+                    Console.WriteLine("Jelszó helytelen!\nHozzáférés megtagadva!");
                     Console.WriteLine("Visszaléptetés a főmenübe!");
                     Thread.Sleep(2500);
                     Belepes(adatok);
@@ -488,7 +488,7 @@ namespace SzamitastechnikaiBolt
             else if (kivalasztott == 2)
             {
                 PenzFeltoltes();
-                Console.WriteLine("Visszalépés az escape gombbal történik");
+                Console.WriteLine("Visszalépés az escape gombbal történik.");
                 lenyomott = Console.ReadKey();
                 if (lenyomott.Key == ConsoleKey.Escape)
                 {
@@ -776,7 +776,7 @@ namespace SzamitastechnikaiBolt
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine($"Műszaki Paraméterek: \n{adatok[kivalasztottIndex].muszakiParameterek[0]}\n{adatok[kivalasztottIndex].muszakiParameterek[1]}\n{adatok[kivalasztottIndex].muszakiParameterek[2]}");
                     Console.WriteLine();
-                    Console.WriteLine("Visszalépés az escape gombbal történik");
+                    Console.WriteLine("Visszalépés az escape gombbal történik.");
                     lenyomott = Console.ReadKey();
                     if (lenyomott.Key == ConsoleKey.Escape)
                     {
