@@ -416,6 +416,7 @@ namespace SzamitastechnikaiBolt
 
             Console.Write("Adja meg hogy mennyi pénzt szeretne feltölteni: ");
             penz += Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Sikeres pénz feltöltés!");
         }
 
         static void Belepes(List<Bolt> adatok)
