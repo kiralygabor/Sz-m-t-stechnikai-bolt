@@ -49,6 +49,15 @@ namespace SzamitastechnikaiBolt
             {
                 string valasz = "Igen";
 
+                Console.WriteLine("Kilépés - Esc");
+                ConsoleKeyInfo lenyomott;
+                lenyomott = Console.ReadKey();
+                if (lenyomott.Key == ConsoleKey.Escape)
+                {
+                    AdatbazisKezeles(adatok);
+                }
+                Console.WriteLine();
+
                 while (valasz == "Igen")
 
                 {
@@ -94,13 +103,8 @@ namespace SzamitastechnikaiBolt
 
                 if (valasz == "Nem")
                 {
-                    Console.WriteLine("Visszalépés az escape gombbal történik");
-                    ConsoleKeyInfo lenyomott;
-                    lenyomott = Console.ReadKey();
-                    if (lenyomott.Key == ConsoleKey.Escape)
-                    {
-                        AdatbazisKezeles(adatok);
-                    }
+                    Thread.Sleep(1000);
+                    AdatbazisKezeles(adatok);
                 }
 
 
@@ -157,16 +161,12 @@ namespace SzamitastechnikaiBolt
                 {
                     adatok.RemoveAt(kivalasztott);
                     Console.WriteLine("A törlés sikeres volt!");
-                    Console.WriteLine("Visszalépés az escape gombbal történik");
-                    lenyomott = Console.ReadKey();
-                    if (lenyomott.Key == ConsoleKey.Escape)
-                    {
-                        AdatbazisKezeles(adatok);
-                    }
+                    Thread.Sleep(1000);
+                    AdatbazisKezeles(adatok);
                 }
                 else
                 {
-                    Belepes(adatok);
+                    AdatbazisKezeles(adatok);
                 }
 
             }
@@ -220,6 +220,14 @@ namespace SzamitastechnikaiBolt
                 Console.Clear();
                 if (lenyomott.Key == ConsoleKey.Enter)
                 {
+
+                    Console.WriteLine("Kilépés - Esc");
+                    lenyomott = Console.ReadKey();
+                    if (lenyomott.Key == ConsoleKey.Escape)
+                    {
+                        Modositas(adatok);
+                    }
+                    Console.WriteLine();
 
                     Console.Write("Név: ");
                     string modositottNev = Console.ReadLine();
@@ -476,6 +484,7 @@ namespace SzamitastechnikaiBolt
                 }
                 else
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Jelszó helytelen!\nHozzáférés megtagadva!");
                     Console.WriteLine("Visszaléptetés a főmenübe!");
                     Thread.Sleep(2500);
@@ -489,12 +498,8 @@ namespace SzamitastechnikaiBolt
             else if (kivalasztott == 2)
             {
                 PenzFeltoltes();
-                Console.WriteLine("Visszalépés az escape gombbal történik.");
-                lenyomott = Console.ReadKey();
-                if (lenyomott.Key == ConsoleKey.Escape)
-                {
-                    Belepes(adatok);
-                }
+                Thread.Sleep(1000);
+                Belepes(adatok);
             }
             else
             {
@@ -543,6 +548,7 @@ namespace SzamitastechnikaiBolt
                 }
 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Visszalépés az escape gombbal történik:");
                 #endregion
 
@@ -618,6 +624,7 @@ namespace SzamitastechnikaiBolt
                 }
 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Visszalépés az escape gombbal történik:");
                 #endregion
 
@@ -668,7 +675,7 @@ namespace SzamitastechnikaiBolt
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Válasszon az alábbi lehetőségek közül:\n");
+                Console.WriteLine("Válasszon az alábbi termékek közül:\n");
 
                 #region Menü kiírása
                 for (int i = 0; i < eszkozok.Count; i++)
@@ -686,6 +693,7 @@ namespace SzamitastechnikaiBolt
                 #endregion
 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Visszalépés az escape gombbal történik:");
 
                 #region Gomblenyomás
@@ -747,6 +755,7 @@ namespace SzamitastechnikaiBolt
                 #endregion
 
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Visszalépés az escape gombbal történik:");
 
                 #region Gomblenyomás
