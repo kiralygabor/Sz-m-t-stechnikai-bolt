@@ -75,8 +75,15 @@ namespace SzamitastechnikaiBolt
                     Console.Write("Kategória: ");
                     ujAdat.kategoria = Console.ReadLine();
 
-                    Console.WriteLine("Gyorsan Avuló: ");
-                    ujAdat.avulo = Convert.ToChar(Console.ReadLine());
+                    Console.WriteLine("Gyorsan Avuló (T/F): ");
+                    string avulo = Console.ReadLine();
+                    while (avulo != "T" && avulo != "F")
+                    {
+                        Console.WriteLine("Gyorsan Avuló (T/F): ");
+                        avulo = Console.ReadLine();
+                    }
+                    ujAdat.avulo = Convert.ToChar(avulo);
+
 
                     Console.WriteLine("Műszaki paraméterek: ");
 
@@ -95,7 +102,6 @@ namespace SzamitastechnikaiBolt
 
                     Console.WriteLine("A termék hozzá lett adva az adatbázishoz!");
                     Console.WriteLine();
-
                     Console.WriteLine("Szeretne még adatot hozzáadni? (Igen, Nem):");
                     valasz = Console.ReadLine();
 
@@ -106,6 +112,19 @@ namespace SzamitastechnikaiBolt
                     Thread.Sleep(1000);
                     AdatbazisKezeles(adatok);
                 }
+
+                else
+                {
+                    while (valasz != "Igen" && valasz != "Nem")
+                    {
+                        Console.WriteLine("Szeretne még adatot hozzáadni? (Igen, Nem):");
+                        valasz = Console.ReadLine();
+                    }
+                    Thread.Sleep(1000);
+                    AdatbazisKezeles(adatok);
+                }
+               
+
 
 
             }
@@ -815,6 +834,7 @@ namespace SzamitastechnikaiBolt
                 adat.darabszam = Convert.ToInt32(sorok[1]);
                 adat.ar = Convert.ToInt32(sorok[2]);
                 adat.kategoria = sorok[3];
+
                 adat.avulo = Convert.ToChar(sorok[4]);
                 string[] sor = sorok[5].Split('#');
                 for (int i = 0; i <= 2; i++)
