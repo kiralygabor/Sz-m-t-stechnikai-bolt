@@ -17,8 +17,7 @@ namespace SzamitastechnikaiBolt
     internal class Program
     {
         static int kivalasztott;
-        static string[] kategoriak_tomb = { "Okostelefon", "Egér", "Nyomtató", "Laptop", "Billentyűzet" };
-        static List<string> kategoriak = new List<string>(kategoriak_tomb);
+        static List<string> kategoriak = new List<string>();
         static List<string> eszkozok = new List<string>();
         static int kivalasztottIndex = 0;
         static double penz = 0;
@@ -179,6 +178,7 @@ namespace SzamitastechnikaiBolt
                 if (lenyomott.Key == ConsoleKey.Enter)
                 {
                     adatok.RemoveAt(kivalasztott);
+                    Console.ForegroundColor= ConsoleColor.White;
                     Console.WriteLine("A törlés sikeres volt!");
                     Thread.Sleep(1000);
                     AdatbazisKezeles(adatok);
@@ -306,7 +306,7 @@ namespace SzamitastechnikaiBolt
                 string fogyoban = "";
                 double kedvezmeny;
 
-                if (adatok[kivalasztott].darabszam < 10)
+                if (adatok[kivalasztottIndex].darabszam < 10)
                 {
                     fogyoban = "(A termék kifogyóban van!)";
                 }
@@ -315,7 +315,7 @@ namespace SzamitastechnikaiBolt
                     fogyoban = "";
                 }
 
-                if (adatok[kivalasztott].avulo == 'T')
+                if (adatok[kivalasztottIndex].avulo == 'T')
                 {
                     kedvezmeny = 0.8;
                 }
@@ -328,6 +328,7 @@ namespace SzamitastechnikaiBolt
                 {
                     Console.WriteLine($"Pénz: {penz} ft");
                     Console.WriteLine();
+
                     Console.WriteLine("Név: {0} \nÁr: {1} Ft\nDarabszám: {2} {3}", adatok[kivalasztottIndex].nev, adatok[kivalasztottIndex].ar * kedvezmeny, adatok[kivalasztottIndex].darabszam, fogyoban);
 
                 }
@@ -348,7 +349,7 @@ namespace SzamitastechnikaiBolt
                     raktaron = raktaron - vasaroltdb;
                     Console.WriteLine();
                     Console.WriteLine("A vásárlás sikeres.");
-                    if (adatok[kivalasztott].avulo == 'F')
+                    if (adatok[kivalasztottIndex].avulo == 'F')
                     {
                         penz -= vasaroltdb * adatok[kivalasztottIndex].ar;
                     }
@@ -371,7 +372,7 @@ namespace SzamitastechnikaiBolt
                     } while (raktaron < vasaroltdb);
 
                     Console.WriteLine("A vásárlás sikeres.");
-                    if (adatok[kivalasztott].avulo == 'F')
+                    if (adatok[kivalasztottIndex].avulo == 'F')
                     {
                         penz -= vasaroltdb * adatok[kivalasztottIndex].ar;
                     }
@@ -396,7 +397,7 @@ namespace SzamitastechnikaiBolt
                     } while (raktaron >= vasaroltdb && raktaron > 0 && vasaroltdb * adatok[kivalasztottIndex].ar > penz);
 
                     Console.WriteLine("A vásárlás sikeres.");
-                    if (adatok[kivalasztott].avulo == 'F')
+                    if (adatok[kivalasztottIndex].avulo == 'F')
                     {
                         penz -= vasaroltdb * adatok[kivalasztottIndex].ar;
                     }
@@ -422,7 +423,6 @@ namespace SzamitastechnikaiBolt
             }
 
         }
-
 
         static int IndexLekeres(int kivalasztott, List<Bolt> adatok)
         {
@@ -613,6 +613,7 @@ namespace SzamitastechnikaiBolt
 
 
         }
+
         static void FoMenu(List<Bolt> adatok)
         {
             kivalasztott = 0;
@@ -834,7 +835,10 @@ namespace SzamitastechnikaiBolt
                 adat.darabszam = Convert.ToInt32(sorok[1]);
                 adat.ar = Convert.ToInt32(sorok[2]);
                 adat.kategoria = sorok[3];
-
+                if (!kategoriak.Contains(adat.kategoria)) 
+                {
+                    kategoriak.Add(adat.kategoria);
+                }
                 adat.avulo = Convert.ToChar(sorok[4]);
                 string[] sor = sorok[5].Split('#');
                 for (int i = 0; i <= 2; i++)
